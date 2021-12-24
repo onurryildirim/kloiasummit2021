@@ -6,7 +6,7 @@ spring:
     init:
       platform: postgres
   datasource:
-    url: jdbc:postgresql://localhost:5432/student
+    url: jdbc:postgresql://bravodb.c6odeamn4gsj.us-east-1.rds.amazonaws.com:5432/student
     username: bravoadmin
     password: 'bravoadmin'
   jpa:
