@@ -13,3 +13,20 @@ info: API is running on 3000/api {"timestamp":"2021-12-24T10:27:34.995Z"}
 info: ::1 - - [24/Dec/2021:10:38:54 +0000] "POST /api HTTP/1.1" 200 40 "-" "PostmanRuntime/7.28.4" {"timestamp":"2021-12-24T10:38:54.888Z"}
 info: API is running on 3000/api {"timestamp":"2021-12-24T11:52:49.038Z"}
 info: API is running on 3000/api {"timestamp":"2021-12-24T11:53:15.035Z"}
+info: API is running on 3000/api {"timestamp":"2021-12-24T12:35:47.571Z"}
+info: ::1 - - [24/Dec/2021:12:35:56 +0000] "POST /api HTTP/1.1" 200 44 "-" "PostmanRuntime/7.28.4" {"timestamp":"2021-12-24T12:35:56.552Z"}
+info: API is running on 3000/api {"timestamp":"2021-12-24T12:36:04.719Z"}
+info: API is running on 3000/api {"timestamp":"2021-12-24T12:36:06.691Z"}
+info: API is running on 3000/api {"timestamp":"2021-12-24T12:37:24.791Z"}
+info: API is running on 3000/api {"timestamp":"2021-12-24T12:37:33.975Z"}
+info: API is running on 3000/api {"timestamp":"2021-12-24T12:37:41.839Z"}
+info: API is running on 3000/api {"timestamp":"2021-12-24T12:37:47.197Z"}
+info: API is running on 3000/api {"timestamp":"2021-12-24T12:37:52.519Z"}
+info: API is running on 3000/api {"timestamp":"2021-12-24T12:39:58.614Z"}
+info: API is running on 3000/api {"timestamp":"2021-12-24T12:40:35.353Z"}
+info: API is running on 3000/api {"timestamp":"2021-12-24T12:40:52.802Z"}
+info: API is running on 3000/api {"timestamp":"2021-12-24T12:47:51.139Z"}
+info: API is running on 3000/api {"timestamp":"2021-12-24T12:47:52.856Z"}
+info: API is running on 3000/api {"timestamp":"2021-12-24T12:48:02.550Z"}
+info: API is running on 3000/api {"timestamp":"2021-12-24T12:48:05.710Z"}
+info: API is running on 3000/api {"timestamp":"2021-12-24T12:52:31.919Z"}

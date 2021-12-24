@@ -2,11 +2,17 @@
 const Teacher = `
   type Teacher {
     id: ID!,
-    name: String!,
+    firstName: String!,
+    lastName: String!,
+    classroomId: Int!
   }
 
   extend type Query {
-    getTeacher(name: String!): Teacher,
+    getTeachers: [Teacher],
+  }
+  
+  extend type Mutation {
+    addTeachers(name: String!): Teacher
   }
 `;
 
