@@ -1,4 +1,4 @@
-package com.example.studentservice.entity;
+package com.example.classroomservice.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,12 +18,12 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "STUDENT")
-@SequenceGenerator(name = "SEQ_STUDENT", sequenceName = "SEQ_STUDENT")
+@Table(name = "CLASSROOM")
+@SequenceGenerator(name = "SEQ_CLASSROOM", sequenceName = "SEQ_CLASSROOM")
 public class Student {
 
     @Id
-    @GeneratedValue(generator = "SEQ_STUDENT", strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(generator = "SEQ_REWARD", strategy = GenerationType.SEQUENCE)
     @Column(name = "ID")
     private Long id;
 

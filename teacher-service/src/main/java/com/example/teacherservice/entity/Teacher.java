@@ -1,4 +1,4 @@
-package com.example.studentservice.entity;
+package com.example.teacherservice.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,21 +18,21 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "STUDENT")
-@SequenceGenerator(name = "SEQ_STUDENT", sequenceName = "SEQ_STUDENT")
-public class Student {
+@Table(name = "TEACHER")
+@SequenceGenerator(name = "SEQ_TEACHER", sequenceName = "SEQ_TEACHER")
+public class Teacher {
 
     @Id
-    @GeneratedValue(generator = "SEQ_STUDENT", strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(generator = "SEQ_TEACHER", strategy = GenerationType.SEQUENCE)
     @Column(name = "ID")
     private Long id;
 
     @Column(name = "NAME")
     private String name;
 
-    @Column(name = "AGE")
-    private String age;
+    @Column(name = "SURNAME")
+    private String surname;
 
-    @Column(name = "EMAIL")
-    private String email;
+    @Column(name = "CLASSROOMID")
+    private String classroomId;
 }
