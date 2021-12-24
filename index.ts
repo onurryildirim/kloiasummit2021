@@ -11,6 +11,28 @@ const vpc = new aws.ec2.Vpc("bravo-vpc", {
   },
 });
 
+const bravo_sg = new aws.ec2.SecurityGroup("bravo-sg", {
+    description: "Allow TLS inbound traffic",
+    vpcId: vpc.id,
+    ingress: [{
+        description: "TLS from VPC",
+        fromPort: 0,
+        toPort: 0,
+        protocol: "-1",
+        cidrBlocks: [vpc.cidrBlock],
+    }],
+    egress: [{
+        fromPort: 0,
+        toPort: 0,
+        protocol: "-1",
+        cidrBlocks: ["0.0.0.0/0"],
+        ipv6CidrBlocks: ["::/0"],
+    }],
+    tags: {
+        Name: "bravo-sg",
+    },
+});
+
 const gw = new aws.ec2.InternetGateway("gw", {
   vpcId: vpc.id,
   tags: {
@@ -36,6 +58,16 @@ const subnet2 = new aws.ec2.Subnet("bravo-subnet2", {
   },
 });
 
+const publicRouteTable = new aws.ec2.RouteTable("bravo-rt", {
+    routes: [
+        {
+            cidrBlock: "0.0.0.0/0",
+            gatewayId: gw.id,
+        },
+    ],
+    vpcId: vpc.id,
+});
+
 const _subnetGroup = new aws.rds.SubnetGroup("subnet_group", {
   subnetIds: [subnet1.id, subnet2.id],
   tags: {
@@ -43,87 +75,60 @@ const _subnetGroup = new aws.rds.SubnetGroup("subnet_group", {
   },
 });
 
-const bravo_rds = new aws.rds.Instance("bravo-rds", {
-  allocatedStorage: 100,
-  engine: "postgres",
-  engineVersion: "13.3",
-  instanceClass: "db.t3.medium",
-  dbSubnetGroupName: _subnetGroup.id,
-  skipFinalSnapshot: true,
-  name: "bravodb",
-  password: "bravoadmin",
-  username: "bravoadmin",
-},
-  {
-    dependsOn: _subnetGroup
-  }
-);
+// const bravo_rds = new aws.rds.Instance("bravo-rds", {
+//   allocatedStorage: 100,
+//   engine: "postgres",
+//   engineVersion: "13.3",
+//   instanceClass: "db.t3.medium",
+//   dbSubnetGroupName: _subnetGroup.id,
+//   skipFinalSnapshot: true,
+//   name: "bravodb",
+//   password: "bravoadmin",
+//   username: "bravoadmin",
+// },
+//   {
+//     dependsOn: _subnetGroup
+//   }
+// );
 
-const assume_role = new aws.iam.Role("bravo-assume-role", {
-  assumeRolePolicy: `{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "eks.amazonaws.com"
-      },
-      "Action": "sts:AssumeRole"
-    }
-  ]
-}
-`,
-});
-
-const bravo_AmazonEKSClusterPolicy = new aws.iam.RolePolicyAttachment(
-  "example-AmazonEKSClusterPolicy",
-  {
-    policyArn: "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy",
-    role: assume_role.name,
-  }
-);
-
-const bravo_AmazonEKSVPCResourceController = new aws.iam.RolePolicyAttachment(
-  "example-AmazonEKSVPCResourceController",
-  {
-    policyArn: "arn:aws:iam::aws:policy/AmazonEKSVPCResourceController",
-    role: assume_role.name,
-  }
-);
-
-const bravo_cluster1 = new aws.eks.Cluster(
+const bravo_cluster1 = new eks.Cluster(
   "bravo1",
   {
-    roleArn:
-      "arn:aws:iam::417732881703:role/EKSROLETEAMBRAVO",
-    vpcConfig: {
-      subnetIds: [subnet1.id, subnet2.id],
-    },
-  },
-  {
-    dependsOn: [
-      bravo_AmazonEKSClusterPolicy,
-      bravo_AmazonEKSVPCResourceController,
-    ],
+    vpcId: vpc.id,
+    publicSubnetIds: [subnet1.id, subnet2.id],
+    nodeAssociatePublicIpAddress: true,
+    clusterSecurityGroup: bravo_sg
   }
 );
 
-const bravo_cluster2 = new aws.eks.Cluster(
+const bravo_cluster2 = new eks.Cluster(
   "bravo2",
   {
-    roleArn:
-      "arn:aws:iam::417732881703:role/EKSROLETEAMBRAVO",
-    vpcConfig: {
-      subnetIds: [subnet1.id, subnet2.id],
-    },
-  },
-  {
-    dependsOn: [
-      bravo_AmazonEKSClusterPolicy,
-      bravo_AmazonEKSVPCResourceController,
-    ],
+    vpcId: vpc.id,
+    publicSubnetIds: [subnet1.id, subnet2.id],
+    clusterSecurityGroup: bravo_sg,
+    nodeAssociatePublicIpAddress: true,
+    kubernetesServiceIpAddressRange: "172.16.0.0/12"
   }
 );
+
+const postgresql = new aws.rds.Cluster("postgresql", {
+    availabilityZones: [
+        "us-east-1a",
+        "us-east-1b",
+        "us-east-1c",
+    ],
+    clusterIdentifier: "aurora-cluster-demo",
+    vpcSecurityGroupIds: bravo_sg,
+    databaseName: "bravodb",
+    engine: "aurora-postgresql",
+    masterPassword: "bravoadmin",
+    masterUsername: "bravoadmin",
+    skipFinalSnapshot: true
+});
 
 // Export the name of the bucket
 export const endpoints = [bravo_cluster1, bravo_cluster2];
+export const kubeconfig1 = bravo_cluster1.kubeconfig;
+export const kubeconfig2 = bravo_cluster2.kubeconfig;
+export const rds = postgresql
