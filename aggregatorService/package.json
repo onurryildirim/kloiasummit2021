@@ -1,0 +1,35 @@
+{
+  "dependencies": {
+    "apollo-server": "^3.5.0",
+    "apollo-server-express": "^3.5.0",
+    "body-parser": "^1.19.1",
+    "connect-redis": "^6.0.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.2",
+    "express-async-errors": "^3.1.1",
+    "express-session": "^1.17.2",
+    "graphql": "^15.8.0",
+    "graphql-tools": "^8.2.0",
+    "helmet": "^4.6.0",
+    "http": "^0.0.1-security",
+    "launchdarkly-node-server-sdk": "^6.2.1",
+    "lodash": "^4.17.21",
+    "logger": "^0.0.1",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.15",
+    "rate-limiter-flexible": "^2.3.6",
+    "redis": "^4.0.1",
+    "winston": "^3.3.3",
+    "xregexp": "^5.1.0"
+  },
+  "name": "hack",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon ./bin/www",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

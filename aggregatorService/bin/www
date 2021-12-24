@@ -1,0 +1,27 @@
+
+const http = require('http');
+const app = require('../app');
+const apolloServer = require('../apollo-server');
+const config = require('../config');
+const logger = require('../config/winston');
+const LaunchDarkly = require('launchdarkly-node-server-sdk');
+
+const port = 3000;
+
+async function startApolloServer(){
+  await apolloServer.start();
+  
+  apolloServer.applyMiddleware({app, path: '/api'});
+  
+  app.listen(port, () => {
+    logger.info(`API is running on ${port}${apolloServer.graphqlPath}`);
+  })
+}
+
+startApolloServer()
+
+client = LaunchDarkly.init("YOUR_SDK_KEY");
+
+module.export ={
+ client
+}
