@@ -20,19 +20,22 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "CLASSROOM")
 @SequenceGenerator(name = "SEQ_CLASSROOM", sequenceName = "SEQ_CLASSROOM")
-public class Student {
+public class Classroom {
 
     @Id
-    @GeneratedValue(generator = "SEQ_REWARD", strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(generator = "SEQ_CLASSROOM", strategy = GenerationType.SEQUENCE)
     @Column(name = "ID")
     private Long id;
 
     @Column(name = "NAME")
     private String name;
 
-    @Column(name = "AGE")
-    private String age;
+    @Column(name = "CODE")
+    private String code;
 
-    @Column(name = "EMAIL")
-    private String email;
+    @Column(name = "STUDENTID")
+    private String studentId;
+
+    @Column(name = "TEACHERID")
+    private String teacherId;
 }

@@ -1,6 +1,8 @@
 package com.example.classroomservice.controller;
 
 
+import com.example.classroomservice.entity.Classroom;
+import com.example.classroomservice.service.ClassroomService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,15 +17,15 @@ import java.util.List;
 @RequestMapping("classrooms")
 public class ClassroomController {
 
-    private final Class studentService;
+    private final ClassroomService classroomService;
 
     @GetMapping
-    public List<Student> getStudents() {
-        return studentService.getStudents();
+    public List<Classroom> getStudents() {
+        return classroomService.getStudents();
     }
 
     @PostMapping
-    public Student createStudent(@RequestBody Student student) {
-        return studentService.createStudent(student);
+    public Classroom createStudent(@RequestBody Classroom student) {
+        return classroomService.createStudent(student);
     }
 }
