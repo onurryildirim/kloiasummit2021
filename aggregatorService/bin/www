@@ -20,7 +20,7 @@ async function startApolloServer(){
 
 startApolloServer()
 
-client = LaunchDarkly.init("YOUR_SDK_KEY");
+client = LaunchDarkly.init("sdk-eacb3cf3-07aa-4f3d-b2df-9e297c75b46d");
 
 module.export ={
  client
