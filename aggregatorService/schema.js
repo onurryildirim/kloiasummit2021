@@ -1,7 +1,16 @@
 const { makeExecutableSchema } = require('@graphql-tools/schema');
 const { merge } = require('lodash');
-const teacherQueries = require('./queries/teacher');
+const teachersQueries = require('./queries/teachers');
+const studentQueries = require('./queries/students');
+const classroomQueries = require('./queries/classrooms');
+
+const teachersMutations = require('./mutations/teachers');
+const studentMutations = require('./mutations/students');
+const classroomMutations = require('./mutations/classrooms');
+
 const Teacher = require('./types/Teacher');
+const Classroom = require('./types/Classroom');
+const Student = require('./types/Student');
 
 const Root = `
   type Query {
@@ -23,14 +32,22 @@ const Root = `
 const resolvers = merge(
   {},
   // queries
-  teacherQueries,
+  teachersQueries,
+  studentQueries,
+  classroomQueries,
+  // mutations
+  teachersMutations,
+  studentMutations,
+  classroomMutations,
 );
 
 
 const schema = makeExecutableSchema({
   typeDefs: [
     Root,
-    Teacher
+    Teacher,
+    Classroom,
+    Student
   ],
   resolvers
 });
