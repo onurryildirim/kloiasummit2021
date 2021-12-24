@@ -1,0 +1,23 @@
+server:
+  port: 8082
+
+spring:
+  sql:
+    init:
+      platform: postgres
+  datasource:
+    url: jdbc:postgresql://localhost:5432/teacher
+    username: bravoadmin
+    password: 'bravoadmin'
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
+      hibernate.format_sql: true
+      hibernate.show_sql: true
+      hibernate.default_schema: sch_payment_wallet_reward
+      hibernate.default_batch_fetch_size: 1000
+      hibernate.jdbc.lob.non_contextual_creation: true
+    database: POSTGRESQL
+    database-platform: postgres
