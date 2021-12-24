@@ -1,0 +1,6 @@
+com/example/classroomservice/ClassroomServiceApplication.class
+com/example/classroomservice/controller/ClassroomController.class
+com/example/classroomservice/entity/Classroom$ClassroomBuilder.class
+com/example/classroomservice/service/ClassroomService.class
+com/example/classroomservice/repository/ClassroomRepository.class
+com/example/classroomservice/entity/Classroom.class
